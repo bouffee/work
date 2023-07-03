@@ -164,17 +164,11 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="t4">
-            <xsl:element name="{$parent-ele}">
-                <xsl:for-each select="$t2/so:output/*[local-name(.)=$parent-ele]">
-                    <xsl:variable name="self" select="."/>
-                    <xsl:variable name="tempResult">
-                        <xsl:element name="{concat($parent-ele,'_element')}">
-                            <xsl:copy-of select="exsl:node-set($self/*)" />
-                        </xsl:element>
-                    </xsl:variable>
-                    <xsl:copy-of select="exsl:node-set($tempResult)"/>
-                </xsl:for-each>
-            </xsl:element>
+            <xsl:for-each select="$t2/so:output/*[local-name()=$parent-ele]">
+                <xsl:copy>
+                    <xsl:copy-of select="*" />
+                </xsl:copy>
+            </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="t5" select="exsl:node-set($t4)"/>
         <so:output>
