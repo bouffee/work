@@ -17,7 +17,7 @@ my_hash = {
 
 data = JSON.generate(my_hash) # generating json
 
-uri = URI('http://localhost:80') # uri to send
+uri = URI('http://localhost:80/') # uri to send
 
 https = Net::HTTP.new(uri.host, uri.port) 
 https.use_ssl = false
