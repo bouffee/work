@@ -13,22 +13,22 @@
 ;;   (.info log "Content has been modified!"))
 
 
-(defn stream-callback [flow]
+(defn stream-callback [flow content]
   (reify StreamCallback
     (process [this inputStream outputStream]
       (.write outputStream
-              (.getBytes (str (slurp inputStream) "\n" "test"))))))
+              (.getBytes (str (slurp inputStream) "\n" (apply str content )))))))
 
-(defn write-content[flow]
-  (.write session flow (stream-callback flow)))
+(defn write-content[flow content]
+  (.write session flow (stream-callback flow content)))
 
 (defn success-transfer [flow]
   (.transfer session flow REL_SUCCESS))
 
 (let [flowFile (.get session)]
+  (def flowFileAttrs (.getAttributes flowFile))
+  (write-content flowFile flowFileAttrs)
   (-> flowFile
-      put-attribute 
-      write-content
+      put-attribute
       success-transfer)
-  (.info log "Content has been modified!")
-  (def flowFileAttrs (.getAttributes flowFile)))
+  (.info log "Content has been modified!"))
