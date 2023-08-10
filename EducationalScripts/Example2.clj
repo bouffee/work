@@ -16,9 +16,14 @@
   (.write session flow (stream-callback flow content)))
 
 (let [flowFile (.get session)]
+  (try
   (def flowFileAttrs (.getAttributes flowFile))
   (write-content flowFile flowFileAttrs)
   (.putAllAttributes session flowFile newAttrs)
   (.putAttribute session flowFile "modify" "true") 
   (.info log "Content has been modified!")
-  (.transfer session flowFile REL_SUCCESS))
+  (.transfer session flowFile REL_SUCCESS)
+    (catch Exception e
+      (.putAttribute session flowFile "error" (.getMessage e))
+      (.transfer session flowFile REL_FAILURE))
+    (finally (.commit session))))
