@@ -22,4 +22,14 @@
 
 <-- end of removing -->
 
+<-- Deep copy of whole XML-document -->
+
+<xsl:template match="@*|node()">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+
+<-- end of copy -->
+
 <--remove ALL prefixes in whole document -->
