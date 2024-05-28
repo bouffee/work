@@ -1,6 +1,4 @@
 # Description
- <li><a href="#Russian"> Russian version </a></li>
- <li><a href="#English"> English version </a></li>
 
 ### English: 
 I work as integration engineer in Greenatom. Mostly I work with Apache Nifi - ETL-instrument for dataflow menagement. 
