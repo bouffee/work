@@ -32,4 +32,8 @@
 
 <-- end of copy -->
 
+<-- delete whole tag with a value -->
+<xsl:template match="TagName"/>
+<-- end of deleting -->
+
 <--remove ALL prefixes in whole document -->
